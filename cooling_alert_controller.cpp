@@ -2,5 +2,6 @@
 
 void ControllerAlert::SendAlertMsg(BreachType breachType)
 {
+   //Hi
    m_breachType = breachType;
 }
