@@ -9,9 +9,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name:
-        name: Installing SUDO
-        run: 'apt-get update && apt-get install -y sudo && rm -rf /var/lib/apt/lists/*'
+    - name: Installing SUDO
+        run:'apt-get update && apt-get install -y sudo && rm -rf /var/lib/apt/lists/*'
     - name: Installing GCC
         run:apt-get update && apt-get install -y gcc g++
     - name: Install GTest
@@ -36,4 +35,5 @@ jobs:
     - name: Cyclomatic Complexity Check
         run:'lizard --CCN 3'
     - name: Unit test
-        run: './testcheck'
+        run:'./testcheck'
+    
