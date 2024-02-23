@@ -13,9 +13,9 @@ jobs:
         name: Installing SUDO
         run: 'apt-get update && apt-get install -y sudo && rm -rf /var/lib/apt/lists/*'
     - name: Installing GCC
-        run: 'apt-get update && apt-get install -y gcc g++'
+        run:apt-get update && apt-get install -y gcc g++
     - name: Install GTest
-        run: |
+        run:|
           apt-get update && apt-get install -y libgtest-dev
           apt-get install -y cmake
           cd /usr/src/gtest
@@ -24,16 +24,16 @@ jobs:
           cp -a include/gtest /usr/include  
           cp *.a /usr/lib
     - name: Install cppcheck
-        run: 'apt-get update && apt-get install -y cppcheck'
+        run:'apt-get update && apt-get install -y cppcheck'
     - name: Install pip
-        run: 'apt-get update && apt-get install -y python-pip'
+        run:'apt-get update && apt-get install -y python-pip'
     - name: Install lizard
-        run: 'pip install lizard'
+        run:'pip install lizard'
     - name: Create Build Files
-        run: 'make'
+        run:'make'
     - name: Static Analysis
-        run: 'cppcheck --enable=all --error-exitcode=1 .'
+        run:'cppcheck --enable=all --error-exitcode=1 .'
     - name: Cyclomatic Complexity Check
-        run: 'lizard --CCN 3'
+        run:'lizard --CCN 3'
     - name: Unit test
         run: './testcheck'
