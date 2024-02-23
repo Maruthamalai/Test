@@ -1,35 +1,39 @@
-version: 2.1
+name: Build and Run
+
+on: [push, pull_request]
+
 jobs:
   build:
-    docker:
-      - image: "debian:stretch"
+
+    runs-on: ubuntu-latest
+
     steps:
-        - uses: actions/checkout@v2
-      - name:
-          name: Installing SUDO
-          run: 'apt-get update && apt-get install -y sudo && rm -rf /var/lib/apt/lists/*'
-      - name: Installing GCC
-          run: 'apt-get update && apt-get install -y gcc g++'
-      - name: Install GTest
-          run: |
-            apt-get update && apt-get install -y libgtest-dev
-            apt-get install -y cmake
-            cd /usr/src/gtest
-            cmake CMakeLists.txt
-            make
-            cp -a include/gtest /usr/include  
-            cp *.a /usr/lib
-      - name: Install cppcheck
-          run: 'apt-get update && apt-get install -y cppcheck'
-      - name: Install pip
-          run: 'apt-get update && apt-get install -y python-pip'
-      - name: Install lizard
-          run: 'pip install lizard'
-      - name: Create Build Files
-          run: 'make'
-      - name: Static Analysis
-          run: 'cppcheck --enable=all --error-exitcode=1 .'
-      - name: Cyclomatic Complexity Check
-          run: 'lizard --CCN 3'
-      - name: Unit test
-          run: './testcheck'
+    - uses: actions/checkout@v2
+    - name:
+        name: Installing SUDO
+        run: 'apt-get update && apt-get install -y sudo && rm -rf /var/lib/apt/lists/*'
+    - name: Installing GCC
+        run: 'apt-get update && apt-get install -y gcc g++'
+    - name: Install GTest
+        run: |
+          apt-get update && apt-get install -y libgtest-dev
+          apt-get install -y cmake
+          cd /usr/src/gtest
+          cmake CMakeLists.txt
+          make
+          cp -a include/gtest /usr/include  
+          cp *.a /usr/lib
+    - name: Install cppcheck
+        run: 'apt-get update && apt-get install -y cppcheck'
+    - name: Install pip
+        run: 'apt-get update && apt-get install -y python-pip'
+    - name: Install lizard
+        run: 'pip install lizard'
+    - name: Create Build Files
+        run: 'make'
+    - name: Static Analysis
+        run: 'cppcheck --enable=all --error-exitcode=1 .'
+    - name: Cyclomatic Complexity Check
+        run: 'lizard --CCN 3'
+    - name: Unit test
+        run: './testcheck'
